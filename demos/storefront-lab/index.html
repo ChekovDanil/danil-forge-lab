@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Synthetic storefront demo by Danil Forge">
+  <title>Forme — Storefront Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-head">
+    <a class="brand" href="#catalog" aria-label="Forme, к каталогу"><span>F</span><b>FORME</b></a>
+    <nav aria-label="Основная навигация"><a href="#catalog">Каталог</a><a href="#principles">Подход</a></nav>
+    <button class="cart-button" id="cartButton" type="button" aria-label="Открыть корзину"><span>Корзина</span><b id="cartCount">0</b></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">КОЛЛЕКЦИЯ 06 / СИНТЕТИЧЕСКОЕ ДЕМО</p>
+        <h1>Тихие вещи<br>для ясной работы.</h1>
+        <p>Небольшая коллекция света и предметов для рабочего пространства. Честные материалы, спокойные формы, понятный выбор.</p>
+        <a href="#catalog">Смотреть коллекцию <span>↓</span></a>
+      </div>
+      <div class="hero-object" aria-hidden="true"><div class="lamp"><i></i><span></span><b></b></div><p>ARC LAMP 02<br><small>НАПРАВЛЕННЫЙ СВЕТ</small></p></div>
+    </section>
+
+    <section class="catalog" id="catalog">
+      <header class="section-head"><div><p class="eyebrow">КАТАЛОГ</p><h2>Выберите свой ритм</h2></div><p id="resultCount">6 предметов</p></header>
+      <div class="filters" aria-label="Фильтры каталога">
+        <label class="search"><span>Поиск</span><input id="searchInput" type="search" placeholder="Название или категория"></label>
+        <div class="chips" id="categoryChips">
+          <button class="active" type="button" data-category="all">Все</button>
+          <button type="button" data-category="light">Свет</button>
+          <button type="button" data-category="desk">Рабочее место</button>
+          <button type="button" data-category="objects">Объекты</button>
+        </div>
+        <label class="sort"><span>Сортировка</span><select id="sortSelect"><option value="featured">По подборке</option><option value="price-asc">Сначала дешевле</option><option value="price-desc">Сначала дороже</option></select></label>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState" hidden><span>0</span><h3>Ничего не найдено</h3><p>Измените запрос или выберите другую категорию.</p><button type="button" id="resetFilters">Сбросить фильтры</button></div>
+    </section>
+
+    <section class="principles" id="principles">
+      <div><p class="eyebrow">FORME / 2026</p><h2>Меньше шума.<br>Больше пользы.</h2></div>
+      <ol><li><span>01</span><div><b>Надолго</b><p>Нейтральные материалы и ремонтопригодная конструкция.</p></div></li><li><span>02</span><div><b>Понятно</b><p>Никаких скрытых вариантов и неожиданностей в корзине.</p></div></li><li><span>03</span><div><b>Локально</b><p>Демонстрационные данные остаются только в браузере.</p></div></li></ol>
+    </section>
+  </main>
+
+  <footer><b>FORME</b><p>Storefront Lab · самостоятельный портфельный проект Danil Forge</p><a href="#catalog">Наверх ↑</a></footer>
+
+  <dialog id="productDialog" class="product-dialog"><div id="productDialogBody"></div></dialog>
+  <dialog id="cartDialog" class="cart-dialog"><div class="cart-shell"><header><div><p class="eyebrow">ВАШ ВЫБОР</p><h2>Корзина</h2></div><button type="button" data-close-cart aria-label="Закрыть">×</button></header><div id="cartBody"></div></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

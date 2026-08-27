@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Catalog Watch — безопасное локальное демо сравнения синтетических снимков каталога.">
+  <title>Catalog Watch — сравнение каталогов</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar"><a href="#top" class="brand"><span>CW</span><b>Catalog Watch</b></a><div class="safe"><i></i>Только локальные fixtures</div><button id="resetButton" class="ghost">Сбросить</button></header>
+  <main id="top">
+    <section class="hero"><div><p class="eyebrow">PUBLIC DATA · SAFE MODE</p><h1>Изменения каталога<br>без лишнего шума.</h1></div><p>Сравните два разрешённых снимка, уберите дубли и получите точный список новых, изменённых и удалённых позиций.</p></section>
+
+    <section class="snapshot-grid" aria-label="Снимки каталога">
+      <article class="snapshot"><header><div><span class="type html">HTML</span><div><small>СНИМОК A</small><h2>Каталог · 27 августа</h2></div></div><em>5 записей</em></header><pre id="htmlPreview"></pre><footer><span>catalog-before.html</span><b>синтетический</b></footer></article>
+      <article class="snapshot"><header><div><span class="type json">JSON</span><div><small>СНИМОК B</small><h2>Каталог · 28 августа</h2></div></div><em>6 строк</em></header><pre id="jsonPreview"></pre><footer><span>catalog-after.json</span><b>синтетический</b></footer></article>
+    </section>
+
+    <section class="control-panel">
+      <div class="control-copy"><p class="eyebrow">НАСТРОЙКА</p><h2>Что отслеживать</h2><p>SKU всегда используется как ключ. Выберите поля, изменения которых важны в отчёте.</p></div>
+      <div class="field-list" id="fieldList"></div>
+      <div class="run-area"><div><small>ПОВТОРЫ В СНИМКАХ</small><strong id="duplicatePreview">1</strong></div><button id="compareButton" class="primary">Сравнить снимки</button></div>
+    </section>
+
+    <section class="results" id="results">
+      <header><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Лента изменений</h2></div><button id="exportButton" class="export" disabled>Экспорт CSV <span>↓</span></button></header>
+      <div class="metrics"><article><small>ВСЕГО SKU</small><strong id="totalMetric">—</strong><span>после дедупликации</span></article><article class="new"><small>НОВЫЕ</small><strong id="newMetric">—</strong><span>появились в B</span></article><article class="changed"><small>ИЗМЕНЕНЫ</small><strong id="changedMetric">—</strong><span>поля отличаются</span></article><article class="removed"><small>УДАЛЕНЫ</small><strong id="removedMetric">—</strong><span>нет в снимке B</span></article></div>
+      <div class="toolbar"><div class="filters" role="group" aria-label="Фильтр изменений"><button class="active" data-filter="all" aria-pressed="true">Все</button><button data-filter="new">Новые</button><button data-filter="changed">Изменены</button><button data-filter="removed">Удалены</button></div><span id="countLabel">Сравнение не запущено</span></div>
+      <div id="emptyState" class="empty"><span>↗</span><h3>Готово к сравнению</h3><p>Выберите поля и запустите локальную проверку.</p></div>
+      <div class="changes" id="changeList" hidden></div>
+    </section>
+
+    <section class="boundary"><div><p class="eyebrow">БЕЗОПАСНАЯ ГРАНИЦА</p><h2>Никаких внешних запросов</h2></div><p>Демо не открывает сайты, не авторизуется и не обходит защиту. Реальный источник подключается только через официальный API, разрешённый экспорт или письменное согласие владельца.</p></section>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relay — маршрутизация заявок</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+<header class="appbar"><a href="#" class="brand"><span>R</span><b>Relay</b></a><div class="product-label">TELEGRAM INTAKE · DEMO</div><div class="connection"><i></i>Локальное демо</div></header>
+<main>
+  <section class="intro"><div><small>ЗАЯВКИ БЕЗ РУЧНОЙ СОРТИРОВКИ</small><h1>Сразу к нужному человеку.</h1></div><p>Бот собирает задачу, контакт, бюджет и срок. Relay определяет приоритет, выбирает команду и формирует понятную карточку для работы.</p><div class="demo-actions"><span>Быстрый сценарий</span><button id="demoNormal">Обычная заявка</button><button id="demoUrgent" class="urgent-soft">Срочная заявка</button><button id="restart" aria-label="Начать заново">↻</button></div></section>
+
+  <section class="metrics"><article><span>Категорий</span><b>4</b><small>разные маршруты</small></article><article><span>Обязательных ответов</span><b>6</b><small>без лишних вопросов</small></article><article><span>Срочный SLA</span><b>30 мин</b><small>для первого ответа</small></article><article><span>Результат</span><b>1 карточка</b><small>вместо переписки</small></article></section>
+
+  <section class="workbench" id="demo">
+    <article class="chat-panel">
+      <header class="panel-head"><div><small>ДИАЛОГ С КЛИЕНТОМ</small><h2>Telegram</h2></div><span id="chatStep">Шаг 1 из 6</span></header>
+      <div class="phone"><header><span class="avatar">R</span><div><b>Relay Assistant</b><small>отвечает сразу</small></div><i></i></header><div id="chat" class="chat"></div><form id="form"><input id="message" autocomplete="off" placeholder="Введите ответ" aria-label="Ответ боту"><button aria-label="Отправить">→</button></form></div>
+    </article>
+
+    <article class="lead-panel" id="leadPanel">
+      <header class="panel-head"><div><small>КАРТОЧКА ДЛЯ КОМАНДЫ</small><h2>Новая заявка</h2></div><span id="leadStatus" class="lead-status empty">Собирается</span></header>
+      <div id="leadCard" class="lead-empty"><span>01</span><b>Карточка появится после подтверждения</b><p>В ней будут задача, контакт, бюджет, маршрут и следующий шаг.</p></div>
+      <footer class="lead-actions" id="leadActions" hidden><button id="askClarification">Нужно уточнение</button><button id="takeWork" class="primary">Взять в работу</button></footer>
+    </article>
+
+    <aside class="route-panel">
+      <header class="panel-head"><div><small>МАРШРУТИЗАЦИЯ</small><h2>Доставка</h2></div><span class="auto">AUTO</span></header>
+      <dl id="routeDetails"><div><dt>Команда</dt><dd>Определится по категории</dd></div><div><dt>Ответственный</dt><dd>—</dd></div><div><dt>Канал</dt><dd>—</dd></div><div><dt>SLA</dt><dd>—</dd></div></dl>
+      <div class="event-title"><span>ЖУРНАЛ</span><b id="eventCount">1 событие</b></div><ol id="eventLog"></ol>
+    </aside>
+  </section>
+
+  <section class="routing-map"><div><small>ПРАВИЛА РАСПРЕДЕЛЕНИЯ</small><h2>Каждая тема знает свой маршрут</h2></div><div class="routes"><article><span>Сайт</span><b>Веб-команда</b><small>Алексей · #web-leads</small></article><article><span>Telegram-бот</span><b>Автоматизация</b><small>Ирина · #automation</small></article><article><span>Интеграция</span><b>Интеграции</b><small>Ирина · #automation</small></article><article><span>Другое</span><b>Первичная оценка</b><small>Менеджер · #new-leads</small></article></div></section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<footer><span>Relay · собственный демонстрационный продукт</span><span>Telegram logic · Routing · Validation</span></footer>
+<script type="module" src="./app.js"></script></body></html>

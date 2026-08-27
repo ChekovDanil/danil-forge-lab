@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ReportKit — подготовка CSV</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="app-header"><a href="#" class="brand"><span>R</span><b>ReportKit</b></a><div class="privacy"><i></i><span>Файл обрабатывается только в браузере</span></div><button id="sample">Открыть пример</button></header>
+<main>
+  <section class="intro"><div><small>ПОДГОТОВКА ТАБЛИЦ</small><h1>Из файла —<br>в готовый отчёт.</h1></div><p>Выберите CSV, проверьте соответствие колонок и скачайте чистые данные. Ошибки останутся отдельным понятным списком.</p></section>
+
+  <section class="flow" aria-label="Этапы обработки">
+    <article class="active" data-step="1"><span>01</span><div><b>Файл</b><small id="stepFile">не выбран</small></div></article>
+    <article data-step="2"><span>02</span><div><b>Колонки</b><small id="stepMapping">ожидают файла</small></div></article>
+    <article data-step="3"><span>03</span><div><b>Проверка</b><small id="stepReview">не запущена</small></div></article>
+    <article data-step="4"><span>04</span><div><b>Экспорт</b><small id="stepExport">не готов</small></div></article>
+  </section>
+
+  <section class="setup">
+    <article class="upload-card">
+      <header><div><small>01 / ИСХОДНЫЙ ФАЙЛ</small><h2>Выберите CSV</h2></div><em>до 2 МБ</em></header>
+      <label class="dropzone" id="dropzone" for="fileInput"><input id="fileInput" type="file" accept=".csv,text/csv,text/plain"><span class="upload-icon">↑</span><b>Перетащите файл сюда</b><small>или нажмите, чтобы выбрать</small></label>
+      <div class="file-card" id="fileCard" hidden><span class="file-icon">CSV</span><div><b id="fileName">—</b><small id="fileMeta">—</small></div><button id="removeFile" aria-label="Удалить файл">×</button></div>
+      <p class="local-note"><i></i>Содержимое не отправляется на сервер</p>
+    </article>
+
+    <article class="mapping-card" id="mappingCard">
+      <header><div><small>02 / СООТВЕТСТВИЕ КОЛОНОК</small><h2>Что находится в файле</h2></div><span id="mappingScore">0 / 5</span></header>
+      <p>ReportKit подставит знакомые названия автоматически. При необходимости выберите нужную колонку вручную.</p>
+      <div class="mapping-grid" id="mappingGrid"><div class="mapping-empty">Сначала выберите файл</div></div>
+      <footer><span id="mappingHint">Нужно сопоставить пять обязательных полей</span><button id="run" class="primary" disabled>Проверить файл</button></footer>
+    </article>
+  </section>
+
+  <section class="results" id="results" hidden>
+    <header class="results-head"><div><small>03 / РЕЗУЛЬТАТ ПРОВЕРКИ</small><h2 id="resultTitle">Файл проверен</h2></div><div class="export-actions"><button id="issuesDownload" disabled>Отчёт ошибок</button><button id="download" class="primary" disabled>Скачать чистый CSV</button></div></header>
+    <section class="metrics"><article><span>Строк в файле</span><strong id="total">0</strong><small>после заголовка</small></article><article><span>Готово</span><strong id="valid">0</strong><small>пойдут в экспорт</small></article><article class="problem"><span>Нужно исправить</span><strong id="invalid">0</strong><small>останутся в отчёте</small></article><article><span>Сумма</span><strong id="amount">0 ₽</strong><small>по чистым строкам</small></article></section>
+    <div class="result-toolbar"><div class="result-filters"><button data-view="all" class="active" aria-pressed="true">Все строки</button><button data-view="invalid" aria-pressed="false">С ошибками</button><button data-view="valid" aria-pressed="false">Готовые</button></div><span id="visibleRows">0 строк</span></div>
+    <div class="table-wrap"><table><thead><tr><th>Строка</th><th>Дата</th><th>Клиент</th><th>Телефон</th><th>Сумма</th><th>Статус</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+
+  <section class="principles"><article><span>01</span><div><b>Без молчаливых исправлений</b><p>Неоднозначное значение остаётся ошибкой и не попадает в чистый файл.</p></div></article><article><span>02</span><div><b>Два понятных результата</b><p>Готовые строки — отдельно. Проблемы с номером строки и полем — отдельно.</p></div></article><article><span>03</span><div><b>Безопасно для Excel</b><p>Формулы в текстовых полях нейтрализуются перед экспортом.</p></div></article></section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

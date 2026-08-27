@@ -1,0 +1,7 @@
+node_modules
+test
+scripts
+backups
+data
+*.log
+.git

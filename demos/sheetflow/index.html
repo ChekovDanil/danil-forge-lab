@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="SheetFlow — интерактивное демо сверки двух таблиц на синтетических данных.">
+  <title>SheetFlow — сверка таблиц</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="SheetFlow, наверх"><span>S</span><b>SheetFlow</b></a>
+    <div class="demo-note"><i></i>Синтетические данные · локальное демо</div>
+    <button class="quiet" id="resetButton">Сбросить</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div><p class="eyebrow">СВЕРКА XLSX / EXCEL</p><h1>Две таблицы.<br>Один понятный итог.</h1></div>
+      <p>Сопоставьте разные названия колонок, найдите расхождения и выгрузите проверенный результат. В демо используются только вымышленные записи.</p>
+    </section>
+
+    <section class="source-grid" aria-label="Исходные таблицы">
+      <article class="source-card">
+        <header><div><span class="file-mark">A</span><div><small>ТАБЛИЦА 01</small><h2>Реестр заказов</h2></div></div><em>5 строк</em></header>
+        <div class="mini-table"><table><thead><tr><th>ID</th><th>Клиент</th><th>Сумма</th></tr></thead><tbody id="leftPreview"></tbody></table></div>
+        <footer>orders_august.xlsx <span>условный файл</span></footer>
+      </article>
+      <article class="source-card">
+        <header><div><span class="file-mark secondary">B</span><div><small>ТАБЛИЦА 02</small><h2>Отчёт платежей</h2></div></div><em>5 строк</em></header>
+        <div class="mini-table"><table><thead><tr><th>Номер</th><th>Почта</th><th>Оплачено</th></tr></thead><tbody id="rightPreview"></tbody></table></div>
+        <footer>payments_august.xlsx <span>условный файл</span></footer>
+      </article>
+    </section>
+
+    <section class="mapping-panel">
+      <header><div><p class="eyebrow">ШАГ 01</p><h2>Сопоставление колонок</h2></div><span id="mappingState">3 из 3</span></header>
+      <p class="section-lead">Укажите, какие колонки отчёта соответствуют ключевым полям реестра.</p>
+      <div class="mapping-grid" id="mappingGrid"></div>
+      <div class="mapping-action"><p id="mappingHint">Все ключевые поля готовы к сверке.</p><button class="primary" id="reconcileButton">Запустить сверку</button></div>
+    </section>
+
+    <section class="results" id="results" aria-live="polite">
+      <header class="results-header"><div><p class="eyebrow">ШАГ 02</p><h2>Результат сверки</h2></div><button class="export" id="exportButton" disabled>Экспорт CSV <span>↓</span></button></header>
+      <div class="metrics">
+        <article><small>ПРОВЕРЕНО</small><strong id="metricTotal">—</strong><span>строк результата</span></article>
+        <article class="positive"><small>СОВПАЛО</small><strong id="metricMatched">—</strong><span>без расхождений</span></article>
+        <article class="attention"><small>ТРЕБУЕТ ПРОВЕРКИ</small><strong id="metricIssues">—</strong><span>строк с отличиями</span></article>
+        <article><small>РАЗНИЦА СУММ</small><strong id="metricDelta">—</strong><span>реестр минус отчёт</span></article>
+      </div>
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="Фильтр результата"><button class="active" data-filter="all" aria-pressed="true">Все</button><button data-filter="issues" aria-pressed="false">Только ошибки</button><button data-filter="matched" aria-pressed="false">Совпадения</button></div>
+        <span id="visibleCount">Сверка ещё не запущена</span>
+      </div>
+      <div class="result-empty" id="resultEmpty"><span>↗</span><h3>Результат появится здесь</h3><p>Проверьте сопоставление колонок и запустите сверку.</p></div>
+      <div class="table-wrap" id="resultTable" hidden><table><thead><tr><th>ID / Клиент</th><th>Email</th><th>Сумма A</th><th>Сумма B</th><th>Статус</th></tr></thead><tbody id="resultRows"></tbody></table></div>
+    </section>
+
+    <section class="boundary"><div><p class="eyebrow">ГРАНИЦА ДЕМО</p><h2>Никаких реальных файлов</h2></div><p>Эта версия показывает механику сверки на синтетических данных. Импорт XLSX, правила заказчика и интеграции подключаются в отдельном проекте.</p></section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

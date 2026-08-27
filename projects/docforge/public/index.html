@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="DocForge — локальный генератор коммерческих документов.">
+  <title>DocForge — пакет документов</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar"><a href="#top" class="brand"><span>D</span>DocForge</a><p>DOCUMENT WORKSPACE</p><span class="local">Локальное демо</span></header>
+  <main id="top">
+    <section class="hero"><div><small>ОДНА ФОРМА · ТРИ ДОКУМЕНТА</small><h1>Документы<br>без ручных копий.</h1></div><p>Заполните реквизиты один раз. Предложение, счёт и акт используют одну проверенную модель данных.</p></section>
+    <section class="workspace">
+      <form id="config" class="config">
+        <header><div><small>ИСХОДНЫЕ ДАННЫЕ</small><h2>Пакет проекта</h2></div><button type="reset" class="quiet">Сбросить</button></header>
+        <label><span>Клиент</span><input name="customer" value="ООО «Демо Север»" required></label>
+        <label><span>Проект</span><input name="project" value="Редизайн клиентского кабинета" required></label>
+        <label><span>Описание результата</span><textarea name="description">Проектирование ключевого сценария, адаптивный интерфейс и комплект исходников.</textarea></label>
+        <div class="grid"><label><span>Стоимость, ₽</span><input name="amount" type="number" min="0" value="48000"></label><label><span>НДС, %</span><select name="vatRate"><option value="0">Без НДС</option><option value="5">5%</option><option value="20">20%</option></select></label></div>
+        <div class="grid"><label><span>Дата</span><input name="issuedAt" type="date" value="2026-08-28"></label><label><span>Номер</span><input name="sequence" type="number" min="1" value="7"></label></div>
+        <button class="primary" type="submit">Собрать пакет</button>
+      </form>
+      <section class="preview-shell">
+        <header class="preview-nav"><div role="tablist"><button class="active" data-doc="offer" type="button">Предложение</button><button data-doc="invoice" type="button">Счёт</button><button data-doc="act" type="button">Акт</button></div><span id="status">Готово</span></header>
+        <article class="document" id="document"></article>
+        <footer class="actions"><button id="downloadHtml" type="button">Скачать HTML</button><button id="downloadJson" type="button" class="secondary">Манифест JSON</button><button id="print" type="button" class="secondary">Печать / PDF</button></footer>
+      </section>
+    </section>
+    <section class="proof"><div><small>ЧТО ПРОВЕРЯЕТСЯ</small><h2>Одна модель.<br>Никаких расхождений.</h2></div><ul><li><b>01</b><span>Одинаковые реквизиты во всех документах</span></li><li><b>02</b><span>Автоматический расчёт суммы и налога</span></li><li><b>03</b><span>Автономный файл без внешнего сервера</span></li></ul></section>
+  </main>
+  <footer class="site-footer"><b>DocForge</b><span>Демонстрационные данные · без отправки на сервер</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

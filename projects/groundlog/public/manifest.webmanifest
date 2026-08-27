@@ -1,0 +1,13 @@
+{
+  "name": "Groundlog — полевой журнал",
+  "short_name": "Groundlog",
+  "description": "Полевые записи, которые работают без сети и синхронизируются без потери версий.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f0e8",
+  "theme_color": "#f3f0e8",
+  "icons": [
+    {"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

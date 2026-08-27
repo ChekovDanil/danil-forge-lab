@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Leadline — CRM продаж</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="#" aria-label="Leadline, начало страницы"><i>L</i><span>Leadline<small>Продажи студии</small></span></a>
+    <nav aria-label="Текущий раздел"><span>Сделки</span></nav>
+    <div class="profile"><span>АМ</span><div><b>Алексей Морозов</b><small>Владелец</small></div></div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div><small id="period">ПРОДАЖИ</small><h1>Воронка сделок</h1><p>Сумма, вероятность и следующий контакт — в одном рабочем экране.</p></div>
+      <button id="add">Новая сделка</button>
+    </section>
+
+    <section class="summary" aria-label="Сводка воронки">
+      <article><span>Сумма в работе</span><strong id="total"></strong><small>все активные сделки</small></article>
+      <article><span>Взвешенный прогноз</span><strong id="weighted"></strong><small>с учётом вероятности</small></article>
+      <article><span>Дошли до решения</span><strong id="conversion"></strong><small>доля текущей воронки</small></article>
+      <article class="urgent"><span>Просроченные действия</span><strong id="overdue"></strong><small id="overdueCaption">на сегодня всё закрыто</small></article>
+    </section>
+
+    <div class="viewbar">
+      <nav aria-label="Представление данных">
+        <button class="active" data-view="board" aria-pressed="true">Воронка</button>
+        <button data-view="agenda" aria-pressed="false">Следующие действия</button>
+      </nav>
+      <span id="activeCount"></span>
+    </div>
+
+    <section class="work-layout">
+      <div>
+        <section id="board" class="board" aria-label="Воронка продаж"></section>
+        <section id="agenda" class="agenda hidden">
+          <header><div><small>ПЛАН КОНТАКТОВ</small><h2>Следующие действия</h2></div><span>По ближайшей дате</span></header>
+          <div id="agendaRows"></div>
+        </section>
+      </div>
+
+      <aside class="focus">
+        <section>
+          <small>БЛИЖАЙШИЙ ФОКУС</small>
+          <h2 id="focusTitle"></h2>
+          <p>Контакты, которые двигают сделки дальше.</p>
+          <div class="focus-list" id="focusList"></div>
+        </section>
+        <section class="goal">
+          <small>ЦЕЛЬ МЕСЯЦА</small>
+          <div><strong id="goalPercent"></strong><span id="goalAmount"></span></div>
+          <i><b id="goalBar"></b></i>
+          <p id="goalCopy"></p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="deal">
+    <form id="dealForm">
+      <header><div><small id="dealStage"></small><h2 id="dialogTitle">Сделка</h2></div><button type="button" id="closeDialog" aria-label="Закрыть">×</button></header>
+      <div class="form-grid">
+        <label>Клиент<input id="dealCompany" required maxlength="60"></label>
+        <label>Название сделки<input id="dealName" required maxlength="100"></label>
+        <label>Бюджет, ₽<input id="dealAmount" type="number" min="0" step="1000"></label>
+        <label>Вероятность, %<input id="dealProbability" type="number" min="0" max="100"></label>
+        <label>Следующее действие<input id="dealNext" maxlength="120"></label>
+        <label>Дата контакта<input id="dealDate" type="date"></label>
+        <label>Этап<select id="move"><option value="new">Новая</option><option value="qualified">Потребность</option><option value="proposal">Предложение</option><option value="decision">Решение</option></select></label>
+        <label class="wide">Комментарий<textarea id="dealNote" rows="3" maxlength="300"></textarea></label>
+      </div>
+      <p id="formError" role="alert"></p>
+      <footer><button type="button" id="deleteDeal" class="danger">Удалить</button><span></span><button type="button" id="cancelDialog">Отмена</button><button type="submit" class="primary">Сохранить</button></footer>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

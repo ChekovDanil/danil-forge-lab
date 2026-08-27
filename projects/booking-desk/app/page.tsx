@@ -1,0 +1,44 @@
+'use client';
+import { FormEvent, useMemo, useRef, useState } from 'react';
+type Staff={name:string;role:string;tone:string};
+type Booking={id:string;date:string;person:number;start:number;duration:number;client:string;service:string};
+const days=[{day:'ПН',date:'24'},{day:'ВТ',date:'25'},{day:'СР',date:'26'},{day:'ЧТ',date:'27'},{day:'ПТ',date:'28'},{day:'СБ',date:'29'}];
+const staff:Staff[]=[{name:'Анна Орлова',role:'Стилист',tone:'sand'},{name:'Михаил Рой',role:'Барбер',tone:'blue'},{name:'Лина Вейс',role:'Колорист',tone:'rose'}];
+const initial:Booking[]=[
+  {id:'b1',date:'27',person:0,start:570,duration:60,client:'Дарья М.',service:'Стрижка и укладка'},
+  {id:'b2',date:'27',person:1,start:600,duration:90,client:'Олег В.',service:'Стрижка и борода'},
+  {id:'b3',date:'27',person:2,start:690,duration:120,client:'Ксения Л.',service:'Окрашивание'},
+  {id:'b4',date:'27',person:0,start:780,duration:45,client:'Марина С.',service:'Консультация'},
+  {id:'b5',date:'27',person:1,start:900,duration:60,client:'Павел К.',service:'Стрижка'},
+  {id:'b6',date:'28',person:2,start:630,duration:90,client:'Ирина З.',service:'Тонирование'},
+];
+const toTime=(minutes:number)=>`${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;
+const fromTime=(value:string)=>{const[h,m]=value.split(':').map(Number);return h*60+m};
+const durationLabel=(value:number)=>value<60?`${value} мин`:value%60?`${Math.floor(value/60)} ч ${value%60} мин`:`${value/60} ч`;
+const dayNames:Record<string,string>={'24':'понедельник','25':'вторник','26':'среда','27':'четверг','28':'пятница','29':'суббота'};
+export default function Home(){
+  const [activeDate,setActiveDate]=useState('27');
+  const [bookings,setBookings]=useState(initial);
+  const [selectedId,setSelectedId]=useState<string|null>('b1');
+  const [editingId,setEditingId]=useState<string|null>(null);
+  const [notice,setNotice]=useState('');
+  const [error,setError]=useState('');
+  const [form,setForm]=useState({client:'',service:'Стрижка',person:'0',start:'12:00',duration:'60'});
+  const dialog=useRef<HTMLDialogElement>(null);
+  const visible=useMemo(()=>bookings.filter(item=>item.date===activeDate).sort((a,b)=>a.start-b.start),[bookings,activeDate]);
+  const selected=bookings.find(item=>item.id===selectedId&&item.date===activeDate)??visible[0];
+  const load=Math.round(visible.reduce((sum,item)=>sum+item.duration,0)/(3*8*60)*100);
+  function openCreate(person=0,start=720){setEditingId(null);setError('');setForm({client:'',service:'Стрижка',person:String(person),start:toTime(start),duration:'60'});dialog.current?.showModal()}
+  function openMove(item:Booking){setEditingId(item.id);setError('');setForm({client:item.client,service:item.service,person:String(item.person),start:toTime(item.start),duration:String(item.duration)});dialog.current?.showModal()}
+  function save(event:FormEvent){event.preventDefault();const candidate={person:Number(form.person),start:fromTime(form.start),duration:Number(form.duration)};const conflict=bookings.find(item=>item.date===activeDate&&item.person===candidate.person&&item.id!==editingId&&candidate.start<item.start+item.duration&&candidate.start+candidate.duration>item.start);if(candidate.start<540||candidate.start+candidate.duration>1020){setError('Запись должна помещаться между 09:00 и 17:00.');return}if(conflict){setError(`Время пересекается с записью «${conflict.client}» в ${toTime(conflict.start)}.`);return}const id=editingId??`b-${Date.now()}`;const value:Booking={id,date:activeDate,client:form.client.trim(),service:form.service,person:candidate.person,start:candidate.start,duration:candidate.duration};setBookings(items=>editingId?items.map(item=>item.id===editingId?value:item):[...items,value]);setSelectedId(id);setNotice(editingId?'Запись перенесена':'Запись создана');dialog.current?.close()}
+  function cancel(item:Booking){if(!window.confirm(`Отменить запись ${item.client} на ${toTime(item.start)}?`))return;setBookings(items=>items.filter(value=>value.id!==item.id));setSelectedId(null);setNotice('Запись отменена')}
+  return <main>
+    <header className="app-header"><a className="brand" href="#"><span>B</span><b>Booking Desk</b></a><nav><a className="active" href="#">Расписание</a><a href="#">Клиенты</a><a href="#">Услуги</a></nav><button className="search">⌕ <span>Найти клиента</span></button><button className="new-booking" onClick={()=>openCreate()}>Новая запись</button></header>
+    <section className="page-head"><div><span className="eyebrow">РАБОЧЕЕ РАСПИСАНИЕ</span><h1>{activeDate} августа, {dayNames[activeDate]}</h1><p>Три специалиста · {visible.length} записей · рабочее время 09:00–17:00</p></div><div className="day-strip">{days.map(day=><button key={day.date} onClick={()=>{setActiveDate(day.date);setSelectedId(null)}} className={activeDate===day.date?'active':''}><span>{day.day}</span><b>{day.date}</b></button>)}</div></section>
+    <section className="workspace"><div className="calendar"><div className="calendar-head"><span></span>{staff.map(person=><article key={person.name}><i className={person.tone}>{person.name[0]}</i><div><b>{person.name}</b><small>{person.role}</small></div></article>)}</div><div className="calendar-body"><div className="times">{['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'].map(time=><span key={time}>{time}</span>)}</div>{staff.map((person,index)=><div className="column" key={person.name}>{visible.filter(item=>item.person===index).map(item=><button onClick={()=>setSelectedId(item.id)} className={`booking ${person.tone} ${selected?.id===item.id?'selected':''}`} style={{top:item.start-540,height:item.duration}} key={item.id}><span>{toTime(item.start)} · {durationLabel(item.duration)}</span><b>{item.client}</b><small>{item.service}</small></button>)}<button className="free-slot" style={{top:180}} onClick={()=>openCreate(index,720)}>+ 12:00 · добавить</button></div>)}</div></div>
+      <aside><div className="aside-head"><span className="eyebrow">{activeDate} АВГУСТА</span><strong>{visible.length}</strong><small>записей</small></div>{selected?<section className="next"><span>ВЫБРАННАЯ ЗАПИСЬ</span><time>{toTime(selected.start)}</time><h2>{selected.client}</h2><p>{selected.service} · {staff[selected.person].name}<br/>{durationLabel(selected.duration)}</p><div className="record-actions"><button onClick={()=>openMove(selected)}>Перенести</button><button onClick={()=>cancel(selected)}>Отменить</button></div></section>:<section className="next empty"><span>СВОБОДНЫЙ ДЕНЬ</span><h2>Записей пока нет</h2><p>Добавьте первую запись — свободное время видно в календаре.</p><button onClick={()=>openCreate()}>Добавить запись</button></section>}<section className="load"><header><span>ЗАГРУЗКА</span><b>{load}%</b></header><i><em style={{width:`${load}%`}}/></i><p>{load<30?'День свободен: можно предложить клиенту несколько вариантов.':'Загрузка распределена между специалистами.'}</p></section></aside>
+    </section>
+    {notice&&<div className="toast" role="status">{notice}<button onClick={()=>setNotice('')}>×</button></div>}
+    <dialog ref={dialog}><form onSubmit={save}><header><div><span className="eyebrow">{editingId?'ПЕРЕНОС':'НОВАЯ ЗАПИСЬ'}</span><h2>{activeDate} августа</h2></div><button type="button" onClick={()=>dialog.current?.close()} aria-label="Закрыть">×</button></header><div className="form-grid"><label><span>Клиент</span><input required minLength={2} value={form.client} onChange={e=>setForm({...form,client:e.target.value})} placeholder="Имя клиента"/></label><label><span>Услуга</span><select value={form.service} onChange={e=>setForm({...form,service:e.target.value})}><option>Стрижка</option><option>Стрижка и укладка</option><option>Окрашивание</option><option>Консультация</option></select></label><label><span>Специалист</span><select value={form.person} onChange={e=>setForm({...form,person:e.target.value})}>{staff.map((person,index)=><option value={index} key={person.name}>{person.name}</option>)}</select></label><label><span>Начало</span><select aria-label="Начало записи" value={form.start} onChange={e=>setForm({...form,start:e.target.value})}>{['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'].map(time=><option key={time}>{time}</option>)}</select></label><label><span>Длительность</span><select aria-label="Длительность записи" value={form.duration} onChange={e=>setForm({...form,duration:e.target.value})}><option value="30">30 минут</option><option value="45">45 минут</option><option value="60">1 час</option><option value="90">1,5 часа</option><option value="120">2 часа</option></select></label></div>{error&&<p className="form-error" role="alert">{error}</p>}<footer><button type="button" onClick={()=>dialog.current?.close()}>Отмена</button><button className="primary">{editingId?'Сохранить перенос':'Создать запись'}</button></footer></form></dialog>
+  </main>
+}

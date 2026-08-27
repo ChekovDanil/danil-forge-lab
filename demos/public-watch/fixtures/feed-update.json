@@ -1,0 +1,5 @@
+[
+  {"visibility":"public","source":"City Open Data","id":"od-241","title":"Обновлён набор адресов общественных пространств","url":"https://data.example.org/datasets/public-spaces","category":"Открытые данные","budget":"—","publishedAt":"2026-08-27T08:15:00+07:00","summary":"В набор добавлены адреса, координаты и дата последней проверки.","tags":["csv","город","геоданные"]},
+  {"visibility":"public","source":"Studio RSS","id":"brief-82","title":"Аудит мобильной версии и исправление кабинета","url":"https://studio.example.org/public/brief-82","category":"Веб-разработка","budget":"35 000 ₽","publishedAt":"2026-08-27T09:05:00+07:00","summary":"Открытый бриф дополнен исправлением критических сценариев после аудита.","tags":["responsive","audit","frontend"]},
+  {"visibility":"public","source":"Public API","id":"asset-91","title":"Подготовить серию карточек товара","url":"https://api.example.org/public/jobs/asset-91","category":"Графика","budget":"9 000 ₽","publishedAt":"2026-08-27T09:12:00+07:00","summary":"Шесть карточек по готовым фото и характеристикам.","tags":["marketplace","cards"]}
+]

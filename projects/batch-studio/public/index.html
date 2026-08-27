@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Batch Studio — локальная очередь реальной пакетной подготовки изображений для сайтов и маркетплейсов.">
+  <title>Batch Studio — Image Production Queue</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Batch Studio, наверх">
+      <span>BS</span>
+      <div><b>Batch Studio</b><small>IMAGE PRODUCTION QUEUE</small></div>
+    </a>
+    <div class="worker-state"><i></i><span>Локальный worker</span><b>Sharp · 1 lane</b></div>
+    <button class="quiet" id="resetButton">Сбросить демо</button>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <div>
+        <span class="eyebrow">REAL OUTPUT / LOCAL SERVICE</span>
+        <h1>Пакет работает.<br><em>Вы смотрите.</em></h1>
+      </div>
+      <p>Исходники проходят очередь по одному. Каждый результат перечитывается, получает размеры и SHA-256, а проблемный файл не останавливает остальные.</p>
+      <dl>
+        <div><dt>Форматы</dt><dd>JPEG · PNG · WebP</dd></div>
+        <div><dt>Результат</dt><dd>3 варианта + ZIP</dd></div>
+        <div><dt>Проверки</dt><dd>16 automated</dd></div>
+      </dl>
+    </section>
+
+    <section class="workbench" aria-label="Рабочая очередь">
+      <aside class="batch-rail">
+        <div class="rail-head"><span class="eyebrow">ПАКЕТЫ</span><b id="batchCount">1</b></div>
+        <div id="batchList"></div>
+        <label class="upload">
+          <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+          <span>＋</span>
+          <b>Новый пакет</b>
+          <small>до 30 файлов · 12 MB</small>
+        </label>
+        <select id="recipeSelect" aria-label="Рецепт нового пакета">
+          <option value="web-delivery">Web delivery</option>
+          <option value="marketplace-square">Marketplace square</option>
+        </select>
+      </aside>
+
+      <section class="queue">
+        <header class="queue-head">
+          <div><span class="eyebrow">ОТКРЫТЫЙ ПАКЕТ</span><h2 id="batchTitle">Загрузка…</h2></div>
+          <div class="batch-status" id="batchStatus">—</div>
+        </header>
+        <div class="runline">
+          <div class="progress"><i id="progressBar"></i></div>
+          <div><b id="progressValue">0 / 0</b><span id="progressMeta">Ожидание</span></div>
+        </div>
+        <div class="queue-labels"><span>Файл</span><span>Операция</span><span>Результат</span></div>
+        <div class="job-list" id="jobList"></div>
+      </section>
+
+      <aside class="proof" id="proofPanel">
+        <div class="proof-empty">
+          <span class="eyebrow">PROOF SHEET</span>
+          <b>Выберите файл</b>
+          <p>Здесь появятся реальные выходные варианты, размеры и контрольные суммы.</p>
+        </div>
+      </aside>
+
+      <footer class="command-strip">
+        <div class="batch-summary">
+          <span><b id="outputCount">0</b> выходов</span>
+          <span><b id="outputSize">0 KB</b> готово</span>
+          <span id="issueSummary">без ошибок</span>
+        </div>
+        <div class="commands">
+          <button id="pauseButton" class="quiet">Пауза</button>
+          <button id="startButton">Запустить</button>
+          <button id="cancelButton" class="danger">Отменить</button>
+          <a id="manifestLink" class="button-link quiet" href="#" download>Manifest</a>
+          <a id="bundleLink" class="button-link" href="#" download>Скачать ZIP</a>
+        </div>
+      </footer>
+    </section>
+
+    <section class="boundary">
+      <span class="eyebrow">ЧЕСТНАЯ ГРАНИЦА</span>
+      <h2>Не облачная ферма.<br>Настоящий локальный процесс.</h2>
+      <p>Worker продолжает очередь, пока запущен локальный сервис — даже если закрыть вкладку. Исходники не изменяются. Аккаунты, S3/CDN, RAW/PSD, AI-upscale и цветокоррекция сюда не входят.</p>
+      <ol><li><b>01</b><span>Magic bytes до обработки</span></li><li><b>02</b><span>Без upscale по умолчанию</span></li><li><b>03</b><span>Output повторно читается</span></li></ol>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Synthetic CMS maintenance rehearsal"><title>Content Patch — CMS Maintenance Lab</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span>C</span><div><b>CONTENT PATCH</b><small>CMS MAINTENANCE LAB</small></div></a><p>Локальная репетиция · внешних запросов нет</p><button type="button" class="report-link" id="reportButton">Отчёт <b id="reportCount">0</b></button></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">КОНТРОЛИРУЕМОЕ ОБСЛУЖИВАНИЕ</p><h1>Исправления<br>без сюрпризов.</h1></div><p>Сначала видим проблему и точный план. Затем создаём резервную точку, применяем выбранные изменения и при необходимости возвращаем всё назад.</p></section>
+    <section class="metrics" id="metrics"></section>
+    <section class="workspace">
+      <aside class="pages-panel panel"><header><div><p class="eyebrow">СТРУКТУРА</p><h2>Страницы</h2></div><span id="pageCount">0</span></header><div class="filters" id="filters"><button class="active" data-filter="all">Все</button><button data-filter="link">Ссылки</button><button data-filter="meta">SEO</button><button data-filter="media">Медиа</button><button data-filter="clean">Чистые</button></div><div class="page-list" id="pageList"></div></aside>
+      <section class="audit-panel panel"><header class="audit-head"><div><p class="eyebrow">АУДИТ СТРАНИЦЫ</p><h2 id="pageTitle">Главная</h2><span id="pagePath">/</span></div><button type="button" class="quiet" id="selectAllButton">Выбрать открытые</button></header><div class="issue-list" id="issueList"></div></section>
+      <aside class="plan-panel panel"><header><p class="eyebrow">DRY-RUN</p><h2>План изменений</h2></header><div class="plan-body" id="planBody"></div><footer class="plan-actions"><button type="button" class="backup" id="backupButton">Создать backup</button><button type="button" class="primary" id="applyButton" disabled>Применить выбранное</button></footer></aside>
+    </section>
+    <section class="boundary"><p class="eyebrow">ЧЕСТНАЯ ГРАНИЦА</p><div><h2>Не подключается к реальному WordPress.</h2><p>Это локальный стенд сценария обслуживания CMS. Он показывает аудит, dry-run, checkpoint, применение и откат на полностью синтетических данных. Настоящая работа потребует доступа к сайту, резервной копии и согласованного окна изменений.</p></div></section>
+  </main>
+  <dialog id="reportDialog"><div class="dialog-shell"><header><div><p class="eyebrow">ЖУРНАЛ СЕССИИ</p><h2>Отчёт</h2></div><button type="button" data-close-dialog>×</button></header><div id="reportBody"></div><footer><button type="button" id="rollbackButton" disabled>Откатить к backup</button><button type="button" data-close-dialog class="primary">Готово</button></footer></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body></html>

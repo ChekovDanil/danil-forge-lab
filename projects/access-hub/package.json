@@ -1,0 +1,16 @@
+{
+  "name": "@portfolio/access-hub",
+  "version": "1.0.0",
+  "description": "Dependency-free authentication, roles and audit core for Node.js",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": "./src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

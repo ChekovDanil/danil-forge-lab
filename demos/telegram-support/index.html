@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Lineup — локальная демонстрация маршрутизации Telegram-поддержки">
+  <title>Lineup — очередь поддержки</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span>L</span><div><b>Lineup</b><small>support desk</small></div></a>
+    <div class="demo-state"><i></i><span>Локальный сценарий</span></div>
+    <button class="quiet" id="newTicket">Новое обращение</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">ПОДДЕРЖКА БЕЗ ПОТЕРЯННЫХ ДИАЛОГОВ</p><h1>Вопрос сразу попадает<br>к нужному человеку.</h1></div>
+      <p class="hero-copy">Lineup определяет приоритет и срок ответа, предлагает короткий черновик и показывает, когда нужен специалист.</p>
+    </section>
+
+    <section class="summary" aria-label="Сводка">
+      <article><span>В очереди</span><b id="metricQueue">0</b><small>активных обращений</small></article>
+      <article><span>С высоким приоритетом</span><b id="metricPriority">0</b><small>требуют быстрого ответа</small></article>
+      <article><span>Нужен человек</span><b id="metricHuman">0</b><small>эскалации и SLA</small></article>
+      <article><span>Telegram API</span><b class="adapter-off">Не подключён</b><small>демо работает локально</small></article>
+    </section>
+
+    <section class="workspace">
+      <aside class="queue-panel panel">
+        <header class="panel-head"><div><p>ОЧЕРЕДЬ</p><h2>Обращения</h2></div><span id="queueCount">0</span></header>
+        <div class="filters" role="tablist"><button class="active" data-filter="active">Активные</button><button data-filter="human">Нужен человек</button><button data-filter="all">Все</button></div>
+        <div id="ticketList" class="ticket-list"></div>
+      </aside>
+
+      <article class="detail-panel panel" id="detailPanel">
+        <div class="empty-state"><span>01</span><h2>Выберите обращение</h2><p>Здесь появятся контекст, маршрут, SLA и готовый ответ.</p></div>
+      </article>
+
+      <aside class="history-panel panel">
+        <header class="panel-head"><div><p>КОНТРОЛЬ</p><h2>История</h2></div><span id="historyCount">—</span></header>
+        <ol id="history" class="history"><li class="history-empty">Статусы появятся после выбора обращения.</li></ol>
+        <div class="adapter-note"><span>BOT API · OPTIONAL</span><p>Внешняя отправка отключена. Интерфейс показывает реальный локальный core без имитации подключения.</p></div>
+      </aside>
+    </section>
+
+    <section class="rules">
+      <div><p class="eyebrow">ПРАВИЛА МАРШРУТИЗАЦИИ</p><h2>Понятная ответственность</h2></div>
+      <div class="rule-grid">
+        <article><span>Оплата</span><b>Биллинг</b><small>Марина · 30–240 минут</small></article>
+        <article><span>Технический вопрос</span><b>Техподдержка</b><small>Илья · по влиянию</small></article>
+        <article><span>Доступ</span><b>Аккаунты</b><small>Олег · безопасное восстановление</small></article>
+        <article><span>Предложение</span><b>Продукт</b><small>Анна · с контекстом</small></article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="ticketDialog">
+    <form method="dialog" id="ticketForm">
+      <header><div><p>НОВОЕ ОБРАЩЕНИЕ</p><h2>Добавить в очередь</h2></div><button value="cancel" aria-label="Закрыть">×</button></header>
+      <div class="form-grid">
+        <label>Имя<input name="name" required minlength="2" value="Анна"></label>
+        <label>Контакт<input name="contact" required value="@demo_user_000001"></label>
+        <label>Тема<select name="category"><option value="technical">Технический вопрос</option><option value="payment">Оплата</option><option value="access">Доступ</option><option value="feedback">Предложение</option><option value="other">Другое</option></select></label>
+        <label>Влияние<select name="impact"><option value="single">Один пользователь</option><option value="many">Несколько пользователей</option></select></label>
+        <label class="wide">Сообщение<textarea name="message" required minlength="12">После обновления не загружается список проектов, вижу пустой экран.</textarea></label>
+        <label class="check wide"><input type="checkbox" name="blocked"> Работа полностью заблокирована</label>
+      </div>
+      <footer><button value="cancel" class="secondary">Отмена</button><button value="default" id="submitTicket">Добавить обращение</button></footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

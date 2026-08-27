@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stockroom — управление каталогом</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="shell">
+  <header class="page-head">
+    <div class="brand"><span class="brand-mark">S</span><div><small>УПРАВЛЕНИЕ КАТАЛОГОМ</small><h1>Stockroom</h1></div></div>
+    <div class="head-actions"><span class="sync"><i></i>Обновлено 09:42</span><button id="import">Импорт партии</button><button id="add" class="primary">Новый товар</button></div>
+  </header>
+
+  <section class="metrics" aria-label="Сводка каталога">
+    <article><span>В каталоге</span><strong id="total">0</strong><small>товаров всего</small></article>
+    <article><span>Опубликовано</span><strong id="active">0</strong><small>активных позиций</small></article>
+    <article><span>Стоимость остатка</span><strong id="value">0 ₽</strong><small>без архивных</small></article>
+    <article class="metric-attention"><span>Дефицит</span><strong id="deficit">0 ед.</strong><button id="showAttention">Открыть очередь · <b id="attention">0</b></button></article>
+  </section>
+
+  <section class="attention-panel" id="attentionPanel" aria-label="Очередь дефицита">
+    <div><small>ТРЕБУЕТ ДЕЙСТВИЯ</small><h2>Закончатся раньше остальных</h2></div>
+    <div class="attention-list" id="attentionList"></div>
+  </section>
+
+  <section class="workspace">
+    <div class="toolbar">
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg><input id="search" aria-label="Поиск по каталогу" placeholder="Название, артикул или категория"></label>
+      <div class="filters" aria-label="Фильтр каталога">
+        <button data-filter="all" class="active" aria-pressed="true">Все</button>
+        <button data-filter="attention" aria-pressed="false">Дефицит</button>
+        <button data-filter="active" aria-pressed="false">Активные</button>
+        <button data-filter="draft" aria-pressed="false">Черновики</button>
+        <button data-filter="archived" aria-pressed="false">Архив</button>
+      </div>
+    </div>
+    <div class="bulk" id="bulk"><span>Выбрано <b id="selected">0</b></span><div><button id="clearSelection">Снять выбор</button><button id="bulkAction">В архив</button></div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="select-col"></th><th>Товар</th><th>Категория</th><th>Остаток</th><th>Цена</th><th>Статус</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <footer class="workspace-footer"><span id="visibleCount">0 позиций</span><button id="scrollTop">Наверх ↑</button></footer>
+  </section>
+
+  <section class="activity">
+    <div><small>ПОСЛЕДНИЕ ИЗМЕНЕНИЯ</small><h2>Журнал каталога</h2></div>
+    <ol id="activityLog"></ol>
+  </section>
+  <div class="notice" id="notice" role="status"><span></span><button id="undo" hidden>Отменить</button></div>
+</main>
+
+<dialog id="importDialog" class="modal import-modal">
+  <form method="dialog">
+    <header><div><small>ПРИМЕР: STOCKROOM_UPDATE_27-08.CSV</small><h2>Проверка импорта</h2></div><button value="cancel" aria-label="Закрыть">×</button></header>
+    <p class="modal-lead">Три строки из подготовленного файла. Изменения показаны до применения; ошибочная строка будет пропущена.</p>
+    <div class="import-summary" id="importSummary"></div>
+    <div class="preview" id="preview"></div>
+    <footer><button value="cancel">Отмена</button><button id="apply" value="confirm" class="primary">Применить</button></footer>
+  </form>
+</dialog>
+
+<dialog id="editor" class="modal editor-modal">
+  <form id="editorForm">
+    <header><div><small id="editorEyebrow">ТОВАР КАТАЛОГА</small><h2 id="editorTitle">Новый товар</h2></div><button type="button" id="closeEditor" aria-label="Закрыть">×</button></header>
+    <div class="editor-meta"><span id="editorStatus" class="status draft">Черновик</span><span id="editorChanged">Не опубликован</span></div>
+    <input id="originalSku" type="hidden">
+    <div class="editor-grid">
+      <label class="wide"><span>Название</span><input id="editName" required minlength="2" placeholder="Название товара"></label>
+      <label><span>Артикул</span><input id="editSku" required minlength="3"></label>
+      <label><span>Категория</span><input id="editCategory" required minlength="2" placeholder="Например, Освещение"></label>
+      <label><span>Цена, ₽</span><input id="editPrice" required type="number" min="0" step="1"></label>
+      <label><span>Остаток</span><input id="editStock" required type="number" min="0" step="1"></label>
+      <label><span>Минимальный остаток</span><input id="editMinimum" required type="number" min="0" step="1"></label>
+    </div>
+    <div class="editor-note" id="editorNote"></div>
+    <footer><button type="button" id="statusAction" class="danger-soft">В архив</button><span></span><button type="button" id="cancelEditor">Отмена</button><button type="submit" id="saveProduct" class="primary">Сохранить</button></footer>
+  </form>
+</dialog>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

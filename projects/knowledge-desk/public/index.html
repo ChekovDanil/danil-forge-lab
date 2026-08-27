@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Knowledge Desk — контролируемые ответы по утверждённой базе знаний.">
+  <title>Knowledge Desk — Evidence Console</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Knowledge Desk">
+      <span class="brand-mark">KD</span>
+      <span><b>Knowledge Desk</b><small>Evidence console</small></span>
+    </a>
+    <div class="runtime"><i></i><span>LOCAL REHEARSAL</span><b>DETERMINISTIC PROVIDER</b></div>
+    <button class="quiet-button" id="resetButton" type="button">Сбросить демо</button>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <div>
+        <span class="eyebrow">CONTROLLED SUPPORT / 2026</span>
+        <h1>Сначала источник.<br><em>Потом ответ.</em></h1>
+      </div>
+      <p>Консоль не заполняет пробелы догадками. Она отвечает по утверждённой статье, задаёт одно уточнение или передаёт вопрос специалисту.</p>
+      <dl class="metrics" id="metrics"></dl>
+    </section>
+
+    <section class="workspace" aria-label="Рабочая консоль">
+      <aside class="queue-panel">
+        <header class="panel-head"><span>Очередь</span><b id="queueCount">0</b></header>
+        <div class="queue" id="queue"></div>
+      </aside>
+
+      <section class="decision-panel">
+        <header class="decision-head">
+          <div><span id="decisionKicker">Решение</span><b id="decisionState">—</b></div>
+          <span class="decision-id" id="decisionId">—</span>
+        </header>
+        <div class="decision-body" id="decisionBody"></div>
+        <form class="composer" id="questionForm">
+          <label for="questionInput">Новый вопрос</label>
+          <div class="input-row">
+            <textarea id="questionInput" rows="2" maxlength="1200" placeholder="Например: как выгрузить данные на тарифе Pro?"></textarea>
+            <button type="submit">Проверить</button>
+          </div>
+          <div class="scenario-row" aria-label="Тестовые сценарии">
+            <button type="button" data-question="Как выгрузить данные на тарифе Pro?">Ответ</button>
+            <button type="button" data-question="Как выгрузить данные в CSV?">Уточнение</button>
+            <button type="button" data-question="С карты списали оплату дважды">Человек</button>
+            <button type="button" data-question="EU: какой срок хранения удалённых данных?">Конфликт</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="evidence-panel">
+        <header class="panel-head"><span>Evidence stack</span><b id="sourceCount">0</b></header>
+        <div class="evidence-list" id="evidenceList"></div>
+        <div class="policy-note">
+          <span>POLICY</span>
+          <p>Draft и retired не цитируются. Деньги, доступ, персональные данные и конфликт редакций всегда передаются человеку.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="boundary">
+      <span class="eyebrow">PROOF / BOUNDARY</span>
+      <div><h2>Решение о праве<br>на ответ — настоящее.</h2><p>Локально работают индексируемая база, контекстные фильтры, версии, evidence gate, цитаты, уточнения и escalation packet.</p></div>
+      <div class="boundary-grid"><article><b>Подтверждено</b><p>Server-side retrieval, source rules, state history, feedback и 14 тестов.</p></article><article><b>Интеграционный слой</b><p>LLM, embeddings, vector DB, ingestion документов, CRM-транспорт, auth и production evaluation.</p></article></div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

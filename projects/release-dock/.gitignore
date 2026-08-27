@@ -1,0 +1,12 @@
+node_modules/
+.npm-cache/
+.env
+.env.*
+!.env.example
+*.log
+coverage/
+dist/
+.DS_Store
+data/backup-report.json
+data/release-report.json
+backups/*.json

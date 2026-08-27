@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f3f0e8">
+  <meta name="description" content="Groundlog — полевой журнал, который работает без сети.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <title>Groundlog · Полевой журнал</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Groundlog"><span class="mark">G</span><span>Groundlog</span></a>
+    <div class="top-actions">
+      <button class="connection" id="connectionButton" type="button"><span class="connection-dot"></span><span id="connectionLabel">В сети</span></button>
+      <button class="icon-button" id="resetButton" type="button" aria-label="Сбросить демо" title="Сбросить демо">↺</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="visits" aria-label="Выезды">
+      <div class="section-head"><div><p class="eyebrow">27 августа</p><h1>Выезды</h1></div><button class="new-button" id="newButton" type="button">+</button></div>
+      <div class="filter-row"><button class="filter active" type="button">Сегодня</button><button class="filter" type="button">Все</button></div>
+      <div class="visit-list" id="visitList"></div>
+      <p class="local-note">Записи хранятся на этом устройстве. Для облачной копии нужна синхронизация.</p>
+    </aside>
+
+    <section class="editor" id="editor" aria-live="polite">
+      <div class="editor-top">
+        <div><p class="eyebrow" id="siteLabel">Объект</p><p class="version" id="versionLabel">Версия —</p></div>
+        <div class="record-state" id="recordState">Сохранено</div>
+      </div>
+      <label class="sr-only" for="titleInput">Название записи</label>
+      <input class="title-input" id="titleInput" maxlength="300" autocomplete="off">
+      <label class="sr-only" for="bodyInput">Наблюдения</label>
+      <textarea class="body-input" id="bodyInput" maxlength="8000"></textarea>
+
+      <div class="facts">
+        <div class="fact"><span>Участок</span><input id="siteInput" maxlength="300"></div>
+        <div class="fact"><span>Метки</span><input id="tagsInput" maxlength="180" placeholder="через запятую"></div>
+        <div class="fact"><span>Статус</span><select id="statusInput"><option value="draft">Черновик</option><option value="ready">Осмотр завершён</option></select></div>
+      </div>
+
+      <section class="conflict" id="conflictPanel" hidden>
+        <div class="conflict-head"><div><p class="eyebrow">Требуется решение</p><h2>Две версии одной записи</h2></div><span class="warning-dot"></span></div>
+        <p class="conflict-copy">Пока вы были без сети, запись изменилась в офисе. Ни одна версия не потеряна.</p>
+        <div class="compare">
+          <article><p class="compare-label">На устройстве</p><div id="localVersion"></div></article>
+          <article><p class="compare-label">В офисе</p><div id="remoteVersion"></div></article>
+        </div>
+        <label class="merge-label" for="mergeInput">Итоговый текст</label>
+        <textarea id="mergeInput" class="merge-input"></textarea>
+        <div class="resolution-actions">
+          <button class="primary" data-resolve="merge" type="button">Объединить и отправить</button>
+          <button class="quiet" data-resolve="local" type="button">Оставить мою</button>
+          <button class="quiet" data-resolve="remote" type="button">Принять офисную</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <section class="sync-tray" aria-live="polite">
+    <div class="sync-summary"><span class="sync-icon" id="syncIcon">✓</span><div><strong id="syncTitle">Все изменения сохранены</strong><span id="syncDetail">Локально и в офисе</span></div></div>
+    <div class="tray-actions"><button class="demo-button" id="collaboratorButton" type="button">Изменить в офисе</button><button class="sync-button" id="syncButton" type="button">Синхронизировать</button></div>
+  </section>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

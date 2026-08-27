@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="TracePin — web demo устанавливаемого браузерного расширения для фиксации правок по сайтам.">
+  <title>TracePin — Web Review Demo</title>
+  <link rel="stylesheet" href="/web-demo/style.css">
+  <script type="module" src="/web-demo/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="#top" class="brand"><span>TP</span><div><b>TracePin</b><small>WEB REVIEW TOOL</small></div></a>
+    <div class="demo-label"><i></i><span>WEB DEMO</span><b>Устанавливаемое расширение лежит отдельно</b></div>
+    <button id="resetDemo">Сбросить</button>
+  </header>
+  <main id="top">
+    <section class="intro">
+      <div><span class="eyebrow">BROWSER EXTENSION / LOCAL ONLY</span><h1>Правка остаётся<br><em>на своём месте.</em></h1></div>
+      <p>Выберите отмеченный элемент на тестовой странице. TracePin сохранит точный текст, источник, тип, приоритет и комментарий в локальный QA-бриф.</p>
+      <dl>
+        <div><dt>Разрешения</dt><dd>4 minimal</dd></div>
+        <div><dt>Host access</dt><dd>none</dd></div>
+        <div><dt>Тесты</dt><dd>26</dd></div>
+      </dl>
+    </section>
+    <section class="demo-shell">
+      <div class="browser">
+        <header><div class="window-dots"><i></i><i></i><i></i></div><div class="address">demo-atelier-07.invalid / collection</div><span>DEMO PREVIEW</span></header>
+        <div class="sample-page">
+          <nav><b>DEMO ATELIER 07</b><div><span>Objects</span><span>Journal</span><span>About</span></div><button>Bag · 0</button></nav>
+          <section class="sample-hero">
+            <div>
+              <small>COLLECTION 07</small>
+              <h2 data-capture data-type="text" data-note="Сократить заголовок: на мобильном он занимает четыре строки.">Objects<br>for slower<br>days.</h2>
+              <p data-capture data-type="text" data-note="Формулировка слишком абстрактная — добавить конкретную пользу коллекции.">A study in weight, texture and deliberate pace. Made for rooms that do not need to explain themselves.</p>
+              <button data-capture data-type="ui" data-priority="important" data-note="CTA теряется: усилить контраст и назвать действие конкретнее.">Explore the edit</button>
+            </div>
+            <div class="object-stage">
+              <div class="orb"></div><div class="plinth"></div><span>01 / LIMESTONE</span>
+              <b data-capture data-type="ui" data-priority="blocker" data-note="Цена выглядит как подпись и не считывается как коммерческая информация.">$ 840</b>
+            </div>
+          </section>
+          <footer><span>Hand-finished in small series</span><span>Worldwide delivery</span><span>Material archive</span></footer>
+        </div>
+      </div>
+      <aside class="extension">
+        <header><span class="mark">TP</span><div><b>TracePin</b><small id="modeLabel">CAPTURE MODE</small></div><button id="libraryButton">Library</button></header>
+        <section id="capturePanel" class="capture-panel">
+          <div class="instruction"><span>01</span><p>Нажмите на элемент с пунктирной рамкой.</p></div>
+          <div id="selectionEmpty" class="selection-empty"><b>Элемент не выбран</b><p>Можно отметить заголовок, текст, кнопку или цену.</p></div>
+          <form id="pinForm" hidden>
+            <span class="eyebrow">НОВАЯ ПРАВКА</span>
+            <blockquote id="selectedText"></blockquote>
+            <div class="form-row">
+              <label>Тип<select id="pinType"><option value="text">Текст</option><option value="ui">Интерфейс</option><option value="bug">Ошибка</option><option value="accessibility">Доступность</option></select></label>
+              <label>Приоритет<select id="pinPriority"><option value="normal">Обычный</option><option value="important">Важно</option><option value="blocker">Блокирует</option></select></label>
+            </div>
+            <label>Теги<input id="pinTags" placeholder="hero, mobile"></label>
+            <label>Комментарий<textarea id="pinNote"></textarea></label>
+            <div class="form-actions"><button type="button" id="cancelPin">Отмена</button><button type="submit">Сохранить</button></div>
+          </form>
+        </section>
+        <section id="libraryPanel" class="library-panel" hidden>
+          <div class="library-title"><span class="eyebrow">QA BRIEF</span><b id="pinCount">0</b></div>
+          <input id="pinSearch" placeholder="Поиск по правкам">
+          <div id="pinList"></div>
+          <div class="library-actions"><button id="exportPreview">Preview</button><button id="backToCapture">Добавить ещё</button></div>
+        </section>
+        <footer><span><i></i> LOCAL STORAGE</span><b id="storageSize">0 KB</b></footer>
+      </aside>
+    </section>
+    <section class="proof">
+      <span class="eyebrow">ACTUAL EXTENSION BOUNDARY</span>
+      <div><h2>Demo показывает сценарий.<br>Manifest доказывает продукт.</h2><p>Отдельная папка расширения содержит service worker, popup, options library и picker. Web demo использует то же ядро, но не выдаётся за установленное расширение.</p></div>
+      <ol><li><b>activeTab</b><span>доступ только после клика</span></li><li><b>storage</b><span>данные остаются локально</span></li><li><b>no hosts</b><span>нет чтения всех сайтов</span></li></ol>
+    </section>
+  </main>
+  <dialog id="exportDialog"><header><b>Markdown preview</b><button id="closeExport">×</button></header><pre id="exportContent"></pre></dialog>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>

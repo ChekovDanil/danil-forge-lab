@@ -1,0 +1,25 @@
+services:
+  release-dock:
+    build: .
+    image: release-dock:portfolio
+    restart: unless-stopped
+    environment:
+      RELEASE_ENV: demo
+      RELEASE_VERSION: 1.0.0
+    ports:
+      - "127.0.0.1:3240:3240"
+    volumes:
+      - ./data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,noexec,nosuid
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3240/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+      start_period: 3s

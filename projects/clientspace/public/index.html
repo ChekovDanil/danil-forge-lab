@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Clientspace — кабинет проекта для согласований, файлов, сроков и платежей.">
+  <title>Clientspace — кабинет проекта</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="Clientspace"><span>CS</span><b>Clientspace</b></a>
+    <nav aria-label="Основное меню">
+      <button class="active" data-view="overview" aria-pressed="true"><i>01</i><span>Обзор</span><em id="navBadge">2</em></button>
+      <button data-view="files" aria-pressed="false"><i>02</i><span>Файлы</span></button>
+      <button data-view="finance" aria-pressed="false"><i>03</i><span>Финансы</span></button>
+    </nav>
+    <section class="project-mini"><small>ТЕКУЩИЙ ПРОЕКТ</small><b>Noma</b><span>Запуск кабинета</span><div><i></i><em id="miniProgress">72%</em></div></section>
+    <div class="user"><span>АМ</span><div><b>Анна Морозова</b><small>Клиент</small></div><button aria-label="Дополнительно">•••</button></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div><p>27 августа · проект № 014</p><h1>Добрый день, Анна</h1></div>
+      <div class="team"><div><span>КС</span><span>ИВ</span></div><p><b>Команда на связи</b><small>Ответим в течение часа</small></p></div>
+    </header>
+
+    <section id="overview" class="view overview">
+      <section class="project-summary">
+        <div><p class="label">ТЕКУЩИЙ ЭТАП</p><h2>Интерактивный прототип</h2><p>Основные сценарии готовы. После двух решений команда начнёт разработку первой версии.</p></div>
+        <dl><div><dt>Готовность</dt><dd id="progress">72%</dd></div><div><dt>Следующая встреча</dt><dd>29 августа · 14:00</dd></div><div><dt>До релиза</dt><dd>16 дней</dd></div></dl>
+      </section>
+
+      <section class="action-center" id="actions">
+        <header class="section-heading"><div><p class="label">ВАШИ ДЕЙСТВИЯ</p><h2>Требуется от вас</h2></div><span id="approvalHeading">2 решения</span></header>
+        <div id="approvals" class="approval-grid"></div>
+      </section>
+
+      <div class="content-grid">
+        <div class="main-column">
+          <section class="stages-section">
+            <header class="section-heading compact"><div><p class="label">ПЛАН РАБОТ</p><h2>Этапы проекта</h2></div><span>4 этапа</span></header>
+            <div id="stages" class="stages"></div>
+          </section>
+          <section class="decision-section">
+            <header class="section-heading compact"><div><p class="label">ЗАФИКСИРОВАНО</p><h2>Решения и события</h2></div></header>
+            <div id="activity" class="activity"></div>
+          </section>
+        </div>
+        <aside class="project-side">
+          <section class="meeting"><p class="label">СЛЕДУЮЩАЯ ВСТРЕЧА</p><time>29 авг · 14:00</time><h3>Проверка прототипа</h3><p>Обсудим навигацию, состав первого релиза и оставшиеся вопросы.</p><button id="meetingButton">Добавить в календарь</button></section>
+          <section><p class="label">ДЕМО-КОМАНДА</p><div class="contact"><span>ПМ</span><div><b>Специалист 01</b><small>Проект-менеджер</small></div></div><div class="contact"><span>ДС</span><div><b>Специалист 02</b><small>Дизайнер</small></div></div></section>
+          <section><p class="label">ФИНАНСЫ</p><div class="money"><span>Оплачено</span><b id="paid"></b></div><div class="money"><span>К оплате</span><b id="due"></b></div></section>
+        </aside>
+      </div>
+    </section>
+
+    <section id="files" class="view panel hidden">
+      <header class="panel-header"><div><p class="label">МАТЕРИАЛЫ ПРОЕКТА</p><h2>Файлы и версии</h2><p>Здесь хранятся только актуальные материалы и зафиксированные решения.</p></div><span id="fileCount"></span></header>
+      <div id="fileList" class="file-list"></div>
+    </section>
+
+    <section id="finance" class="view panel hidden">
+      <header class="panel-header"><div><p class="label">СЧЕТА И ОПЛАТЫ</p><h2>Финансы проекта</h2><p>Этапы, суммы и документы без переписки и поиска по почте.</p></div><div class="finance-total"><span>Бюджет проекта</span><strong id="total"></strong></div></header>
+      <div id="invoices" class="invoice-list"></div>
+    </section>
+  </main>
+
+  <dialog id="approval">
+    <form method="dialog">
+      <header><div><p class="label">СОГЛАСОВАНИЕ</p><h2 id="approvalTitle"></h2><p id="approvalMeta"></p></div><button value="cancel" aria-label="Закрыть">×</button></header>
+      <div class="file-preview" aria-label="Предпросмотр файла"><div class="preview-top"><span>noma / prototype</span><em id="previewVersion">v3</em></div><div class="preview-body"><aside></aside><main><span></span><span></span><section><i></i><i></i><i></i></section><div></div></main></div></div>
+      <section class="changelog"><span>Что изменилось</span><p id="approvalChanges"></p></section>
+      <label for="comment">Комментарий</label>
+      <textarea id="comment" placeholder="Укажите конкретные правки или оставьте комментарий к решению"></textarea>
+      <p class="form-note" id="approvalHelp">Комментарий сохранится вместе с решением и версией файла.</p>
+      <footer><button id="request" value="none">Нужны правки</button><button id="approve" value="none" class="primary">Согласовать версию</button></footer>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/public/app.js"></script>
+</body>
+</html>

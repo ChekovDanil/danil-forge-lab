@@ -1,0 +1,19 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SyncBridge — Sync Rehearsal</title><meta name="description" content="Интерактивное демо безопасной синхронизации: dry-run, mapping, retry, частичные ошибки и idempotency."><link rel="stylesheet" href="/style.css"></head><body>
+<header class="topbar"><a href="#"><span>S</span><b>SyncBridge</b></a><p>SYNC REHEARSAL</p><div><i></i>Local adapters</div></header>
+<main>
+<section class="intro"><div><small>DRY-RUN FIRST · API INTEGRATION</small><h1>Сначала увидеть.<br><em>Потом изменить.</em></h1></div><p>SyncBridge показывает точный payload, изолирует плохие записи, повторяет временные ошибки и не создаёт дубли при повторном запуске.</p></section>
+
+<section class="control"><div class="control-copy"><span id="phase">READY</span><h2 id="resultTitle">Готово к репетиции</h2><p id="resultDetail">Начните с dry-run: целевая CRM останется без изменений.</p></div><div class="actions"><button data-action="dry-run">Dry run</button><button data-action="apply">Применить</button><button data-action="replay">Повторить без изменений</button><button class="quiet" data-action="change-source">Изменить источник</button><button class="icon" data-action="reset" aria-label="Сбросить">↻</button></div></section>
+
+<section class="bridge">
+  <div class="column source"><div class="column-head"><small>SOURCE</small><h3>Website leads</h3><span id="sourceCount">0 записей</span></div><div id="sourceList" class="record-list"></div></div>
+  <div class="lens"><div class="lens-head"><small>MAPPING LENS</small><h3>Явные правила</h3></div><div id="mappingList" class="mapping-list"></div><div class="lens-note"><span>required</span><b>name · email</b></div></div>
+  <div class="column target"><div class="column-head"><small>TARGET</small><h3>CRM contacts</h3><span id="targetCount">0 записей</span></div><div id="targetList" class="target-list"></div></div>
+</section>
+
+<section class="report"><div class="report-head"><div><small>LAST BATCH</small><h2>Каждая запись<br>имеет исход.</h2></div><div id="reportStats" class="report-stats"></div></div><div id="reportList" class="report-list"><p class="empty">После запуска здесь появятся mapped payload, попытки и финальный результат.</p></div></section>
+
+<section class="tape"><div class="tape-head"><div><small>EXECUTION TAPE</small><h2>Ошибка не исчезает.<br>Пакет не останавливается.</h2></div><p>Каждая попытка остаётся в журнале. Временный сбой может завершиться успехом, постоянный — остаётся рядом со своей записью.</p></div><div id="journal" class="journal"></div></section>
+
+<section class="boundary"><small>PRODUCTION BOUNDARY</small><h2>Ядро синхронизации.<br>Не готовый коннектор.</h2><div><p>Демо реально выполняет mapping, dry-run, upsert, retry, partial failure и idempotency на сервере.</p><p>Реальные API-адаптеры, OAuth, secrets, pagination, scheduler, rate limits, monitoring и durable journal подключаются отдельно.</p></div><ul><li>Local in-memory</li><li>No real APIs</li><li>At-least-once</li><li>Not exactly-once</li></ul></section>
+</main><footer><b>SyncBridge</b><span>Mapping · Dry-run · Retry · Idempotency</span><a href="#">Наверх ↑</a></footer><div id="toast" class="toast" role="status"></div><script type="module" src="/app.js"></script></body></html>

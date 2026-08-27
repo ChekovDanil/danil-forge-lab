@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "TracePin",
+  "version": "0.1.0",
+  "description": "Фиксируйте точные правки по сайтам и собирайте локальный QA-бриф.",
+  "permissions": ["activeTab", "contextMenus", "storage", "scripting"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "TracePin", "default_popup": "popup.html" },
+  "options_page": "options.html",
+  "incognito": "not_allowed",
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

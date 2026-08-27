@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Access Hub — Decision Lab</title>
+  <meta name="description" content="Интерактивное демо ролей, приглашений, блокировки входа, восстановления и безопасного аудита.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#" class="brand"><span>A</span><b>Access Hub</b></a>
+    <p>DECISION LAB</p>
+    <div class="environment"><i></i>Local memory</div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><small>AUTHORIZATION CORE · LIVE EVIDENCE</small><h1>Доступ — это<br><em>решение.</em></h1></div>
+      <p>Не таблица пользователей, а четыре ситуации, где система должна разрешить действие, отказать или безопасно восстановить доступ.</p>
+      <button id="reset" class="quiet">Сбросить демо</button>
+    </section>
+
+    <section class="lab">
+      <nav class="stories" aria-label="Сценарии проверки">
+        <button class="story active" data-story="attack"><span>01</span><b>Атака на вход</b><small>Блокировка и recovery</small></button>
+        <button class="story" data-story="invite"><span>02</span><b>Приглашение</b><small>Одноразовый доступ</small></button>
+        <button class="story" data-story="role"><span>03</span><b>Изменение роли</b><small>Permission diff</small></button>
+        <button class="story" data-story="privacy"><span>04</span><b>Неизвестный email</b><small>Без раскрытия аккаунта</small></button>
+      </nav>
+
+      <section class="stage" aria-live="polite">
+        <div class="stage-label"><span id="storyNumber">01</span><small id="storyType">LOGIN PROTECTION</small></div>
+        <h2 id="storyTitle">Три ошибки.<br>Вход закрыт.</h2>
+        <p id="storyText">Система считает неудачные попытки и временно блокирует вход. Восстановление сбрасывает блокировку, а token работает только один раз.</p>
+        <div id="storyControls" class="controls"></div>
+        <div id="timeline" class="timeline"></div>
+      </section>
+
+      <aside class="decision" id="decision">
+        <p class="decision-label">POLICY DECISION</p>
+        <div class="decision-mark" id="decisionMark">—</div>
+        <h3 id="decisionTitle">Готово к проверке</h3>
+        <p id="decisionDetail">Выберите действие. Здесь появится решение политики и понятная причина.</p>
+        <dl><div><dt>Outcome</dt><dd id="decisionOutcome">pending</dd></div><div><dt>Code</dt><dd id="decisionCode">—</dd></div></dl>
+      </aside>
+    </section>
+
+    <section class="members">
+      <div class="section-head"><div><small>WORKSPACE STATE</small><h2>Три роли.<br>Явные права.</h2></div><p>Состояние берётся из настоящего server-side ядра. Пароли, хеши, соли и tokens в браузер не передаются.</p></div>
+      <div id="memberList" class="member-list"></div>
+    </section>
+
+    <section class="audit">
+      <div class="audit-head"><div><small>SAFE AUDIT</small><h2>Видно решение.<br>Не видно секретов.</h2></div><div class="audit-filters"><button class="active" data-filter="all">Все</button><button data-filter="success">Разрешено</button><button data-filter="denied">Отказано</button></div></div>
+      <div class="redaction"><span>REDACTION CHECK</span><p>password · passwordHash · passwordSalt · raw token</p><b>не попадают в журнал</b></div>
+      <div id="auditList" class="audit-list"></div>
+    </section>
+
+    <section class="boundary">
+      <small>PRODUCTION BOUNDARY</small>
+      <h2>Ядро правил.<br>Не готовый IdP.</h2>
+      <div><p>В демо реально работают scrypt, одноразовые tokens, роли, блокировка и аудит.</p><p>Сессии, cookies, MFA, OAuth, email-доставка, постоянная база и rate limiting подключаются внешним слоем.</p></div>
+      <ul><li>Local in-memory demo</li><li>No sessions</li><li>Server-side crypto</li><li>State resets on restart</li></ul>
+    </section>
+  </main>
+
+  <footer><b>Access Hub</b><span>Authentication · Roles · Recovery · Audit</span><a href="#">Наверх ↑</a></footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

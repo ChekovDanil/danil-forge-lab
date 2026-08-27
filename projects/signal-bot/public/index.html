@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Signal Bot — мониторинг без шума</title>
+  <meta name="description" content="Демонстрация Telegram-бота мониторинга: группировка сбоев, тихие часы и подтверждение инцидента.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><a href="#top" class="brand"><span>SB</span><b>Signal Bot</b></a><p>MONITORING WORKSPACE · 2026</p><div class="system-state"><i></i><span>Демо запущено</span></div></header>
+  <main id="top">
+    <section class="intro"><div><p class="eyebrow">TELEGRAM MONITORING · INCIDENT FLOW</p><h1>Сигнал,<br>когда он нужен.</h1></div><p>Бот объединяет повторные ошибки, соблюдает тихие часы и зовёт человека только там, где требуется решение.</p></section>
+
+    <section class="workspace">
+      <aside class="services-panel"><div class="panel-head"><span>Сервисы</span><b id="service-count">3</b></div><div id="services"></div><p class="boundary">Telegram-доставка не подключена в этой демонстрации. Сообщения формируются и проверяются локально.</p></aside>
+
+      <section class="incident-panel"><header><div><p class="eyebrow">Рабочий сценарий</p><h2>Инциденты</h2></div><div class="scenario-tabs" role="group" aria-label="Сценарий"><button data-scenario="normal">Норма</button><button data-scenario="quiet">Тихие часы</button><button data-scenario="critical" class="active">Сбой API</button></div></header><p id="summary" class="summary"></p><div id="incidents" class="incidents" aria-live="polite"></div></section>
+
+      <aside class="message-panel"><div class="panel-head"><span>Сообщение</span><b>PREVIEW</b></div><div class="phone"><div class="phone-head"><span>Signal Bot</span><small>локальный preview</small></div><div id="messages" class="messages"></div></div><div class="message-rule"><b>Правило</b><p>Критический сбой отправляется сразу. Предупреждение ночью остаётся в утренней сводке.</p></div></aside>
+    </section>
+
+    <section class="proof"><p class="eyebrow">ЧТО РАБОТАЕТ</p><div><article><b>01</b><h3>Группировка</h3><p>Повторная проверка обновляет один инцидент вместо нового сообщения.</p></article><article><b>02</b><h3>Тихие часы</h3><p>Предупреждение ждёт сводку, критический сбой проходит сразу.</p></article><article><b>03</b><h3>Подтверждение</h3><p>Ответственный и время решения сохраняются в состоянии.</p></article><article><b>04</b><h3>Восстановление</h3><p>Healthy-проверка закрывает инцидент и формирует итог.</p></article></div></section>
+  </main>
+  <footer><b>Signal Bot</b><span>Monitoring · Grouping · Quiet hours · Handoff</span><a href="#top">Наверх ↑</a></footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

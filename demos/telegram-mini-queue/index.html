@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ecece7">
+  <meta name="description" content="Standalone-демо мобильной очереди заявок с фильтрами, подтверждением и эскалацией.">
+  <title>Queue — очередь заявок</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#queue" aria-label="Queue"><span>Q</span><b>Queue</b></a>
+    <p>INTAKE DESK · STANDALONE DEMO</p>
+    <div class="demo-state"><i></i><span>Локальный сценарий</span></div>
+  </header>
+
+  <main>
+    <section class="overview" id="queue">
+      <div class="overview-copy"><p class="eyebrow">Входящие заказы</p><h1>Сначала важное.</h1><p>Очередь собирает найденные заявки в одном месте, показывает риск и оставляет человеку только решение.</p></div>
+      <dl class="metrics"><div><dt>Новые</dt><dd id="newCount">—</dd></div><div><dt>Приоритет</dt><dd id="priorityCount">—</dd></div><div><dt>Подтверждены</dt><dd id="approvedCount">—</dd></div></dl>
+    </section>
+
+    <section class="desk">
+      <aside class="queue-panel">
+        <header class="panel-heading"><div><p class="eyebrow">Очередь</p><h2>Заявки</h2></div><span id="visibleCount">0</span></header>
+        <nav class="filters" aria-label="Фильтры заявок">
+          <button class="active" data-filter="all">Все</button><button data-filter="new">Новые</button><button data-filter="priority">Важные</button><button data-filter="approved">Приняты</button><button data-filter="escalated">Эскалация</button>
+        </nav>
+        <div class="request-list" id="requestList"></div>
+      </aside>
+
+      <article class="request-detail" id="requestDetail" aria-live="polite">
+        <header class="detail-head"><div><span class="source" id="detailSource"></span><p id="detailMeta"></p></div><button class="priority-button" id="priorityButton" type="button" aria-label="Изменить приоритет">☆</button></header>
+        <h2 id="detailTitle"></h2>
+        <p class="client" id="detailClient"></p>
+        <dl class="brief-facts"><div><dt>Бюджет</dt><dd id="detailBudget"></dd></div><div><dt>Срок</dt><dd id="detailDeadline"></dd></div><div><dt>Совпадение</dt><dd id="detailScore"></dd></div></dl>
+
+        <section class="brief-section"><p class="eyebrow">Что требуется</p><p id="detailBrief"></p></section>
+        <section class="proposal"><p class="eyebrow">Как предлагаю сделать</p><p id="detailProposal"></p></section>
+        <section class="risk"><p class="eyebrow">Что проверить</p><p id="detailRisk"></p></section>
+
+        <footer class="detail-actions"><button id="escalateButton" type="button">Нужна моя оценка</button><button id="approveButton" class="primary" type="button">Подтвердить</button></footer>
+      </article>
+
+      <aside class="activity-panel">
+        <header class="panel-heading"><div><p class="eyebrow">История</p><h2>Действия</h2></div><span>Сегодня</span></header>
+        <ol id="history"></ol>
+        <section class="boundary" id="boundary"><p class="eyebrow">Граница демо</p><p>Интерфейс похож на Telegram Mini App, но не использует Telegram SDK, не читает чаты и ничего не отправляет наружу. Названия площадок — синтетические демо-данные; интеграции и аффилиации нет.</p></section>
+      </aside>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Мобильная навигация"><a class="active" href="#queue"><span>⌁</span>Заявки</a><a href="#history"><span>◷</span>История</a><a href="#boundary"><span>○</span>О демо</a></nav>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

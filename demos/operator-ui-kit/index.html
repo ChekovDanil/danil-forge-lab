@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Operator UI Kit — спокойная система компонентов для очередей, согласований и админ-интерфейсов.">
+  <title>Operator UI Kit</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Operator UI Kit, в начало"><span class="brand-mark">O</span><span>Operator UI</span></a>
+    <nav aria-label="Разделы">
+      <a href="#foundations">Основа</a><a href="#components">Компоненты</a><a href="#patterns">Сценарии</a>
+    </nav>
+    <button class="button button-secondary compact" id="densityButton" type="button" aria-pressed="false">Плотнее</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Community-ready · v1.0</p>
+      <h1>Рабочий интерфейс,<br>который не мешает работать.</h1>
+      <p class="hero-copy">Система для очередей, согласований и админ-панелей. Нейтральная структура, ясные состояния и один заметный следующий шаг.</p>
+      <div class="hero-meta" aria-label="Состав набора">
+        <div><strong>34</strong><span>варианта</span></div><div><strong>12</strong><span>компонентов</span></div><div><strong>4</strong><span>паттерна</span></div><div><strong>390+</strong><span>адаптив</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="foundations">
+      <div class="section-heading"><div><p class="eyebrow">01 · Основа</p><h2>Спокойная система</h2></div><p>Цвет сообщает состояние, а не украшает каждую поверхность.</p></div>
+      <div class="foundation-grid">
+        <article class="panel color-panel">
+          <div class="panel-head"><h3>Цвет</h3><span>10 tokens</span></div>
+          <div class="swatches" aria-label="Цветовая палитра">
+            <div class="swatch ink"><span>Ink</span><code>#191A1B</code></div><div class="swatch canvas"><span>Canvas</span><code>#F4F4F1</code></div><div class="swatch accent"><span>Accent</span><code>#3949AB</code></div><div class="swatch attention"><span>Attention</span><code>#D66B2C</code></div><div class="swatch danger"><span>Blocked</span><code>#B6423A</code></div>
+          </div>
+        </article>
+        <article class="panel type-panel">
+          <div class="panel-head"><h3>Типографика</h3><span>4 roles</span></div>
+          <div class="type-sample"><span>Display / 44</span><strong>Ясная очередь</strong></div>
+          <div class="type-row"><div><span>Title / 24</span><b>Решение по заказу</b></div><div><span>Body / 15</span><p>Проверяем контекст и показываем только необходимое действие.</p></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="components">
+      <div class="section-heading"><div><p class="eyebrow">02 · Компоненты</p><h2>Меньше вариантов, больше смысла</h2></div><p>Все элементы имеют реальный рабочий контекст и предсказуемые состояния.</p></div>
+      <div class="component-grid">
+        <article class="panel component-card">
+          <div class="panel-head"><h3>Действия</h3><span>4 variants</span></div>
+          <div class="button-row"><button class="button button-primary">Подтвердить</button><button class="button button-secondary">Открыть</button><button class="button button-quiet">Отложить</button><button class="button button-danger">Отменить</button></div>
+          <div class="button-row small"><button class="button button-primary" disabled>Недоступно</button><button class="icon-button" aria-label="Дополнительные действия">•••</button></div>
+        </article>
+        <article class="panel component-card">
+          <div class="panel-head"><h3>Поля</h3><span>3 states</span></div>
+          <label class="field"><span>Поиск</span><input type="search" placeholder="Заказ, клиент или исполнитель"></label>
+          <label class="field"><span>Статус</span><select><option>Все активные</option><option>Требуют решения</option><option>В работе</option></select></label>
+        </article>
+        <article class="panel component-card status-card">
+          <div class="panel-head"><h3>Статусы</h3><span>text + signal</span></div>
+          <div class="status-list"><span class="status neutral">Подходящий</span><span class="status accent-status">В работе</span><span class="status attention-status">Ваше решение</span><span class="status danger-status">Есть проблема</span><span class="status success-status">Готово</span></div>
+        </article>
+        <article class="panel component-card">
+          <div class="panel-head"><h3>Фильтры</h3><span>selected / count</span></div>
+          <div class="chips" role="group" aria-label="Фильтры очереди"><button class="chip selected" data-filter="all">Все <b>12</b></button><button class="chip" data-filter="mine">Ваши <b>3</b></button><button class="chip" data-filter="risk">Проблемы <b>1</b></button></div>
+          <p class="component-note" id="filterNote">Показаны все активные записи.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="patterns">
+      <div class="section-heading"><div><p class="eyebrow">03 · Сценарии</p><h2>Очередь и решение</h2></div><p>Главный объект остаётся компактным, пока не требует внимания.</p></div>
+      <div class="workspace-demo">
+        <div class="workspace-bar"><div><span class="workspace-kicker">Очередь</span><h3>Текущая работа</h3></div><div class="workspace-actions"><label class="search-mini"><span aria-hidden="true">⌕</span><input aria-label="Поиск в демонстрации" placeholder="Найти"></label><button class="icon-button" id="noticeButton" aria-label="Показать уведомление">3</button></div></div>
+        <div class="queue" role="table" aria-label="Пример очереди задач">
+          <div class="queue-head" role="row"><span>Задача</span><span>Исполнитель</span><span>Срок</span><span>Статус</span><span></span></div>
+          <article class="queue-row priority" role="row" data-kind="risk">
+            <div class="task-cell"><span class="priority-label">Высокий приоритет</span><strong>Проверить доступ к API платежей</strong><small>Интеграция остановлена до подтверждения владельца.</small></div><span data-label="Исполнитель">Вы</span><span data-label="Срок">Сегодня, 16:00</span><span data-label="Статус"><i class="status attention-status">Ваше решение</i></span><button class="button button-primary compact open-decision" type="button">Решить</button>
+          </article>
+          <article class="queue-row" role="row" data-kind="mine">
+            <div class="task-cell"><strong>Собрать отчёт по обращениям</strong><small>Данные проверены, экспорт формируется автоматически.</small></div><span data-label="Исполнитель">Codex</span><span data-label="Срок">Сегодня, 18:30</span><span data-label="Статус"><i class="status accent-status">В работе</i></span><button class="button button-secondary compact" type="button">Открыть</button>
+          </article>
+          <article class="queue-row" role="row" data-kind="all">
+            <div class="task-cell"><strong>Обновить карточки каталога</strong><small>12 из 12 изображений подготовлены и проверены.</small></div><span data-label="Исполнитель">Codex</span><span data-label="Срок">27 августа</span><span data-label="Статус"><i class="status success-status">Готово</i></span><button class="button button-secondary compact" type="button">Результат</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="pattern-grid">
+        <article class="decision-note" id="decisionNote">
+          <div class="decision-copy"><span class="priority-label">Нужно ваше решение</span><h3>Разрешить тестовый доступ?</h3><p>Без доступа нельзя проверить оплату. Агент не будет менять данные и использует только тестовый режим.</p></div>
+          <div class="decision-meta"><div><span>Риск</span><strong>Средний</strong></div><div><span>Следующий шаг</span><strong>Проверка API</strong></div></div>
+          <div class="decision-actions"><button class="button button-primary" id="approveButton">Разрешить</button><button class="button button-secondary">Отклонить</button></div>
+        </article>
+        <article class="panel state-panel"><div class="panel-head"><h3>Пустое состояние</h3><span>no dead end</span></div><div class="empty-icon" aria-hidden="true">✓</div><strong>Всё спокойно</strong><p>Нет задач, которые требуют вашего решения. Автоматическая работа продолжится в фоне.</p></article>
+      </div>
+    </section>
+
+    <section class="section closing"><p class="eyebrow">04 · Передача</p><h2>Токены, правила и реальные сценарии.</h2><p>Набор подготовлен как чистая основа для Figma Community. Без клиентских данных, закрытых брендов и декоративных компонентов без назначения.</p><div class="deliverables"><span>Tokens JSON</span><span>Component spec</span><span>Responsive proof</span><span>Accessibility states</span></div></section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Решение сохранено в демо.</div>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
