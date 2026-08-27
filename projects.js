@@ -12,7 +12,8 @@ const projects = [
   ['sheetflow','SheetFlow','Excel и сверка','Сопоставление двух таблиц, расхождения и безопасный CSV-экспорт.','projects/sheetflow'],
   ['docforge','DocForge','Документы','Коммерческое предложение, счёт и акт из одной формы.','projects/docforge'],
   ['catalog-watch','Catalog Watch','Контроль каталога','Сравнение локальных снимков каталога, изменения и безопасный CSV-отчёт.','projects/catalog-watch'],
-  ['content-patch','Content Patch','Поддержка сайта','Проверка страниц, план исправлений, резервная точка и откат.','projects/content-patch']
+  ['content-patch','Content Patch','Поддержка сайта','Проверка страниц, план исправлений, резервная точка и откат.','projects/content-patch'],
+  ['northern-relay-concept','Northern Relay Station','AI-assisted concept','Архитектурный поиск, материалы, ключевые кадры и интерьер в едином арт-дирекшене.','demos/northern-relay-concept']
 ];
 
 const repository = 'https://github.com/ChekovDanil/danil-forge-lab/tree/main/';
@@ -58,3 +59,4 @@ document.querySelector('#source-grid').innerHTML = sources.map(([id,title,type],
     <span>${String(index+1).padStart(2,'0')} · ${type}</span>
     <strong>${title}</strong><i>↗</i>
   </a>`).join('');
+
